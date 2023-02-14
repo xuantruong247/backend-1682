@@ -1,5 +1,5 @@
 const User = require("../models/userModel")
-const { genneralAccessToken, genneralRefreshToken } = require('./jwtSer');
+const { genneralAccessToken, genneralRefreshToken, accessToken, refreshToken } = require('./jwtSer');
 const bcrypt = require("bcrypt")
 
 
@@ -85,18 +85,21 @@ const loginUserSer = (userLogin) => {
                 })
             }
 
-            const access_Token = await genneralAccessToken({
+            const access_Token = await accessToken({
                 id: checkUser.id,
                 isAdmin: checkUser.isAdmin
             })
 
-            const refresh_Token = await genneralRefreshToken({
+
+            const refresh_Token = await refreshToken({
                 id: checkUser.id,
                 isAdmin: checkUser.isAdmin
             })
+
 
             resolve({
                 success: 'true',
+                data: checkUser,
                 access_Token,
                 refresh_Token
             })
