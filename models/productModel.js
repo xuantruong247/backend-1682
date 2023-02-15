@@ -1,71 +1,46 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
-const productSchema = mongoose.Schema({
-    name: {
-        type: String,
-        require: [true, "Please Enter product Name"],
-        trim: true
-    },
-    price: {
-        type: String,
-        require: [true, "Please Enter product Name"],
-        maxLength: [8, "Price canot exceed 8 characters"]
-    },
-    description: {
-        type: String,
-        require: [true, "Please Enter product Name"]
-    },
-    rating: {
-        type: Number,
-        default: 0
-    },
-    images: [
-        {
-            public_id: {
-                type: String,
-                require: true
+const productSchema = new mongoose.Schema(
+    {
+        name: {
+             type: String,
+              required: true, 
+              unique: true 
             },
-            url: {
-                type: String,
-                require: true
-            }
-        }
-    ],
-    category: {
-        type: String,
-        require: [, "Please Enter Product Category"],
-
-    },
-    Stock: {
-        type: Number,
-        require: [true, "Please Enter product Stock"],
-        maxLength: [4, "Stock cannot 4 characters"],
-        default: 1
-    },
-    numOfReview: {
-        type: Number,
-        default: 0
-    },
-    reviews: [
-        {
-            name: {
-                type: String,
-                require: true,
+        image: {
+             type: String, 
+             required: true 
             },
-            rating: {
-                type: Number,
-                require: true,
-            },
-            comment: {
-                type: String,
-                require: true,
-            },
-        }
-    ],
-    createAt: {
-        type: Date,
-        default: Date.now
+        type: {
+             type: String,
+              required: true
+             },
+        price: { 
+            type: String, 
+            required: true
+         },
+        countInStock: { 
+            type: Number,
+            required: true 
+        },
+        rating: { 
+            type: Number, 
+            required: true 
+        },
+        description: {
+             type: String
+             },
+        discount: { 
+            type: Number
+         },
+        selled: {
+             type: Number
+             },
+    },
+    {
+        timestamps: true,
     }
-})
+);
+const Product = mongoose.model('Product', productSchema);
 
-module.exports = mongoose.model("Product", productSchema)
+module.exports = Product;

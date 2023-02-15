@@ -12,9 +12,9 @@ router.route("/user/update/:id").put(updateUser);
 
 router.route("/user/delete/:id").delete(authMiddleware, deleteUser)
 
-router.route("/user/getAll").get(authMiddleware, getAllUser)
+router.route("/user/getAllUser").get( getAllUser)
 
-router.route("/user/getDetail/:id").get(authUserMiddleware, authMiddleware, getDetailUser)
+router.route("/user/getDetailUser/:id").get(authUserMiddleware,  getDetailUser)
 
 // router.route("/user/refresh-token").post(refreshToken)
 

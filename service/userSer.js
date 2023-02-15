@@ -72,7 +72,7 @@ const loginUserSer = (userLogin) => {
             })
             if (checkUser === null) {
                 resolve({
-                    status: 'ERR',
+                    status: false,
                     message: 'The user is not defined'
                 })
             }
@@ -162,14 +162,17 @@ const deleteUserSer = (id) => {
 }
 
 // Get All User
-const getAllUserSer = () => {
+const getAllUserSer = (limit = 8, page = 0) => {
     return new Promise(async (resolve, reject) => {
         try {
-
-            const getAllUser = await User.find()
+            const totalUser = await User.count()
+            const getAllUser = await User.find().limit(limit).skip(limit * page)
             resolve({
                 success: true,
-                data: getAllUser
+                data: getAllUser,
+                total: totalUser,
+                pageCurrent: Number(page + 1),
+                totalPage: Math.ceil(totalUser / limit)
             })
         } catch (error) {
             reject(error)

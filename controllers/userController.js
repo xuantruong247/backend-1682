@@ -118,7 +118,8 @@ const deleteUser = catchAsyncErrors(async (req, res) => {
 // Get All User 
 const getAllUser = catchAsyncErrors(async (req, res) => {
     try {
-        const response = await userSer.getUserSer()
+        const { limit, page } = req.query
+        const response = await userSer.getAllUserSer(Number(limit), Number(page))
         return res.status(200).json(response)
     } catch (error) {
         return res.status(404).json({
